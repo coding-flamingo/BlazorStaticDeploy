@@ -58,6 +58,7 @@ jobs:
       with:
         azcliversion: latest
         inlineScript: | 
+          ls
           # show azure account being used
           az account show
           # az storage account upload
