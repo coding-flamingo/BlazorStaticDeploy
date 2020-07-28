@@ -1,0 +1,56 @@
+name: DeployToAWSS3
+ 
+on:
+  push:
+    branches:
+      - dev
+
+ 
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    
+    - name: Set up .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '3.1.102'
+
+    - name: Build with dotnet
+      run: dotnet build --configuration Release
+
+    - name: dotnet publish
+      run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/blazorapp
+
+    - name: dotnet changehtml
+      run: mv ${{env.DOTNET_ROOT}}/blazorapp/wwwroot/GHIndex.html  ${{env.DOTNET_ROOT}}/blazorapp/wwwroot/index.html
+     
+    - name: Publish artifacts
+      uses: actions/upload-artifact@master
+      with:
+        name: blazorStaticSite
+        path: ${{env.DOTNET_ROOT}}/blazorapp
+ 
+  deploy:
+    needs: build
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+ 
+    # Download artifacts
+    - name: Download artifacts
+      uses: actions/download-artifact@master
+      with:
+        name: blazorStaticSite
+ 
+    - name: Deploy to GitHub Pages 🚀
+      uses: crazy-max/ghaction-github-pages@v2.1.1
+      with:
+        # Build directory to deploy
+        build_dir: wwwroot 
+        # Allow Jekyll to build your site
+        jekyll: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
