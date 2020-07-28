@@ -3,7 +3,7 @@ name: DeployToAWSS3
 on:
   push:
     branches:
-      - dev
+      - master
 
  
 jobs:
