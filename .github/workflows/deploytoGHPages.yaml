@@ -50,7 +50,8 @@ jobs:
         build_dir: wwwroot 
         # Allow Jekyll to build your site
         jekyll: false
-        
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         
     # Deploy to GitHub Pages 
     - name: Deploy to GitHub Pages 🚀
