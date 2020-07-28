@@ -3,7 +3,7 @@ name: DeployToAzureStorageTest
 on:
   push:
     branches:
-      - master
+      - dev
  
 env:
   AZURE_RESOURCE_GROUP: deployblazor
