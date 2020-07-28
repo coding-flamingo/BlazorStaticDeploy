@@ -23,7 +23,9 @@ jobs:
 
     - name: dotnet publish
       run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/blazorapp
-     
+
+    - name: dotnet changehtml
+      run: mv ${{env.DOTNET_ROOT}}/blazorapp/wwwroot/GHIndex.html  ${{env.DOTNET_ROOT}}/blazorapp/wwwroot/index.html
      
     - name: Publish artifacts
       uses: actions/upload-artifact@master
@@ -43,7 +45,7 @@ jobs:
       with:
         name: blazorStaticSite
  
-    - name: GitHub Pages
+    - name: Deploy to GitHub Pages 🚀
       uses: crazy-max/ghaction-github-pages@v2.1.1
       with:
         # Build directory to deploy
@@ -52,11 +54,3 @@ jobs:
         jekyll: false
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        
-    # Deploy to GitHub Pages 
-    - name: Deploy to GitHub Pages 🚀
-      uses: JamesIves/github-pages-deploy-action@3.5.9
-      with:
-        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        BRANCH: gh-pages # The branch the action should deploy to.
-        FOLDER: wwwroot # The folder the action should deploy.
