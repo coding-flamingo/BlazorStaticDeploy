@@ -51,8 +51,8 @@ jobs:
  
     # Deploy to GitHub Pages 
     - name: Deploy to GitHub Pages 🚀
-        uses: JamesIves/github-pages-deploy-action@3.5.7
-        with:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: wwwroot # The folder the action should deploy.
+      uses: JamesIves/github-pages-deploy-action@3.5.9
+      with:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        BRANCH: gh-pages # The branch the action should deploy to.
+        FOLDER: wwwroot # The folder the action should deploy.
