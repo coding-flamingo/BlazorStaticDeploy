@@ -1,0 +1,58 @@
+name: DeployToGHPages
+ 
+on:
+  push:
+    branches:
+      - master
+
+ 
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    
+    - name: Set up .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '3.1.102'
+
+    - name: Build with dotnet
+      run: dotnet build --configuration Release
+
+    - name: dotnet publish
+      run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/blazorapp
+     
+     
+    - name: Publish artifacts
+      uses: actions/upload-artifact@master
+      with:
+        name: blazorStaticSite
+        path: ${{env.DOTNET_ROOT}}/blazorapp
+ 
+  deploy:
+    needs: build
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+ 
+    # Download artifacts
+    - name: Download artifacts
+      uses: actions/download-artifact@master
+      with:
+        name: blazorStaticSite
+ 
+    # Authentication
+    - name: Authenticate with Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS  }}
+ 
+    # Deploy to GitHub Pages 
+    - name: Deploy to GitHub Pages 🚀
+        uses: JamesIves/github-pages-deploy-action@3.5.7
+        with:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: wwwroot # The folder the action should deploy.
