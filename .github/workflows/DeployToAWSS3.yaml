@@ -24,9 +24,6 @@ jobs:
     - name: dotnet publish
       run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/blazorapp
 
-    - name: dotnet changehtml
-      run: mv ${{env.DOTNET_ROOT}}/blazorapp/wwwroot/GHIndex.html  ${{env.DOTNET_ROOT}}/blazorapp/wwwroot/index.html
-     
     - name: Publish artifacts
       uses: actions/upload-artifact@master
       with:
@@ -45,7 +42,7 @@ jobs:
       with:
         name: blazorStaticSite
  
-    - name: Deploy to GitHub Pages 🚀
+    - name: Deploy to S3 🚀
       uses: jakejarvis/s3-sync-action@master
       with:
         args: --acl public-read --follow-symlinks --delete
