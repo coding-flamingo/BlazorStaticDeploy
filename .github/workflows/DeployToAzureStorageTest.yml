@@ -1,13 +1,13 @@
-name: DeployToAzureStorageTest
+name: blazorstaticsitetest
  
 on:
   push:
     branches:
-      - dev
+      - master
  
 env:
   AZURE_RESOURCE_GROUP: deployblazor
-  BLOB_STORAGE_ACCOUNT_NAME: codingflamingoblazor
+  BLOB_STORAGE_ACCOUNT_NAME: blazorstaticsitetest
  
 jobs:
   build:
