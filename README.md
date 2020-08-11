@@ -12,5 +12,5 @@ https://www.youtube.com/playlist?list=PLUQ4D25da8kHNFrGPXMzXlyb-LLte6gso
 ## AWS S3 Deploy
 ![DeployToAWSS3](https://github.com/coding-flamingo/BlazorStaticDeploy/workflows/DeployToAWSS3/badge.svg)
 
-##Github pages
+## Github pages
 ![DeployToGHPages](https://github.com/coding-flamingo/BlazorStaticDeploy/workflows/DeployToGHPages/badge.svg)
