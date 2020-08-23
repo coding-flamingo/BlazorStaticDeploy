@@ -1,4 +1,4 @@
-name: DeployToGHPages
+name: DeploytoRegularSite
  
 on:
   push:
